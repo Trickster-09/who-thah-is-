@@ -1,0 +1,6 @@
+# node_id: identifica el nodo. speaker: quien habla (por ahora solo "npc").
+# text_key: clave de localizacion de la pregunta. requires_flag: para
+# ramas condicionales futuras, vacio por ahora.
+node_id,speaker,text_key,requires_flag
+q1,npc,interrogation.q1.text,
+q2,npc,interrogation.q2.text,

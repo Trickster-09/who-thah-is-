@@ -13,12 +13,13 @@
 //
 // Convención: LK = abreviatura de LocalizationKeys (menos verboso).
 //
-// NOTA: estas claves (trait.*, q01/q02) parecen venir de un proyecto
-// anterior (test de personalidad), no del juego de guardia de base.
-// Sirven ahora para probar que el sistema completo compila y funciona
-// de punta a punta; conviene reemplazarlas por claves reales del
-// interrogatorio (ej. interrogation.q01.text) cuando diseñemos ese
-// contenido.
+// NOTA: Traits y Questions (trait.*, q01/q02) parecen venir de un
+// proyecto anterior (test de personalidad), no del juego de guardia de
+// base. Se mantienen porque sirven para validar que el sistema
+// compila y corre de punta a punta. LK.Interrogation es el primer
+// bloque de claves reales del juego (grafo de interrogatorio de
+// prueba con una contradicción: soldado que dice nunca haber estado
+// en la base).
 // ============================================================
 
 public static class LK
@@ -51,7 +52,7 @@ public static class LK
         public const string WILL_FLAVOR     = "trait.will.flavor";
     }
 
-    // ── Preguntas del test ───────────────────────────────────
+    // ── Preguntas del test (legado, ver nota arriba) ─────────
     // Patrón: Q[número].narrator / Q[número].text / Q[número].answer.[índice]
     public static class Questions
     {
@@ -68,15 +69,11 @@ public static class LK
         public const string Q02_A1       = "q02.answer.1";
         public const string Q02_A2       = "q02.answer.2";
         public const string Q02_A3       = "q02.answer.3";
-
-        // Añade más preguntas aquí siguiendo el mismo patrón
     }
 
     // ── UI general ───────────────────────────────────────────
     public static class UI
     {
-        // El {0} y {1} se reemplazan con números en runtime:
-        // LocalizationManager.Get(LK.UI.TEST_PROGRESS, 2, 8) → "Pregunta 2 de 8"
         public const string TEST_PROGRESS       = "ui.test.progress";
         public const string TEST_NAME_PROMPT    = "ui.test.name.prompt";
         public const string TEST_NAME_HOLDER    = "ui.test.name.placeholder";
@@ -90,5 +87,19 @@ public static class LK
     {
         public const string SPANISH = "lang.spanish";
         public const string ENGLISH = "lang.english";
+    }
+
+    // ── Interrogatorio en la base (contenido real del juego) ──
+    // Usado por Assets/_Project/Data/DialogueGraphs/interrogation_*.csv
+    public static class Interrogation
+    {
+        public const string Q1_TEXT           = "interrogation.q1.text";
+        public const string Q1_ANSWER_SOLDIER = "interrogation.q1.answer.soldier";
+        public const string Q1_ANSWER_TRADER  = "interrogation.q1.answer.trader";
+        public const string Q1_ANSWER_REFUGEE = "interrogation.q1.answer.refugee";
+
+        public const string Q2_TEXT              = "interrogation.q2.text";
+        public const string Q2_ANSWER_NEVER_BEEN = "interrogation.q2.answer.never_been";
+        public const string Q2_ANSWER_LONG_ABSENCE = "interrogation.q2.answer.long_absence";
     }
 }

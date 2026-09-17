@@ -1,0 +1,8 @@
+# Varias filas pueden compartir el mismo node_id (una por cada opcion
+# de respuesta). next_node_id "END" termina el interrogatorio.
+node_id,answer_text_key,next_node_id,sets_flag
+q1,interrogation.q1.answer.soldier,q2,claim_soldier
+q1,interrogation.q1.answer.trader,q2,claim_trader
+q1,interrogation.q1.answer.refugee,q2,claim_refugee
+q2,interrogation.q2.answer.never_been,END,claim_never_been_here
+q2,interrogation.q2.answer.long_absence,END,claim_long_absence

@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa88f0010f635c545826c5673c9f2cc4, type: 3}
+  m_Name: InterrogationDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::InterrogationDatabase
+  nodesCsv: {fileID: 4900000, guid: 6de86d8986fb94d44bc2b44a59a54f3c, type: 3}
+  answersCsv: {fileID: 4900000, guid: 60e6ce95fd0f12f4c87eafc1fa9cf2bf, type: 3}

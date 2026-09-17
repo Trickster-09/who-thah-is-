@@ -40,3 +40,10 @@ ui.test.result.title,Resultado,Result
 ui.test.result.continue,Continuar,Continue
 lang.spanish,Español,Spanish
 lang.english,Inglés,English
+interrogation.q1.text,¿Quién eres y qué buscas en la base?,Who are you and what do you seek at the base?
+interrogation.q1.answer.soldier,Soy soldado de la guarnición del norte.,I am a soldier from the northern garrison.
+interrogation.q1.answer.trader,Vengo a comerciar.,I come to trade.
+interrogation.q1.answer.refugee,Busco refugio.,I seek shelter.
+interrogation.q2.text,¿Hace cuánto no pisas esta base?,How long since you've set foot in this base?
+interrogation.q2.answer.never_been,Nunca había estado aquí.,I had never been here before.
+interrogation.q2.answer.long_absence,Hace un año que no vengo.,I haven't come in a year.
