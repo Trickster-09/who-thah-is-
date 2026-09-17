@@ -1,0 +1,42 @@
+# Tabla de localización — datos de ejemplo para validar el sistema.
+# Estas claves (trait.*, q01/q02) vienen de un proyecto anterior de
+# test de personalidad. Sirven para probar que compila y corre; se
+# reemplazan por las claves reales del interrogatorio del juego cuando
+# diseñemos ese contenido.
+KEY,ES,EN
+trait.empathy.name,Empatía,Empathy
+trait.empathy.short,Empatía,Empathy
+trait.empathy.result,Tu resultado revela una fuerte empatía.,Your result reveals strong empathy.
+trait.empathy.flavor,Sientes profundamente lo que otros sienten.,You deeply feel what others feel.
+trait.reason.name,Razón,Reason
+trait.reason.short,Razón,Reason
+trait.reason.result,Tu resultado revela un pensamiento racional.,Your result reveals rational thinking.
+trait.reason.flavor,Analizas antes de actuar.,You analyze before acting.
+trait.instinct.name,Instinto,Instinct
+trait.instinct.short,Instinto,Instinct
+trait.instinct.result,Tu resultado revela un instinto agudo.,Your result reveals sharp instinct.
+trait.instinct.flavor,Confías en tu primera reacción.,You trust your first reaction.
+trait.will.name,Voluntad,Will
+trait.will.short,Voluntad,Will
+trait.will.result,Tu resultado revela una voluntad firme.,Your result reveals firm will.
+trait.will.flavor,No te rindes fácilmente.,You don't give up easily.
+q01.narrator,Un desconocido se acerca a la entrada.,A stranger approaches the entrance.
+q01.text,"¿Quién eres y por qué quieres entrar?","Who are you and why do you want to enter?"
+q01.answer.0,Soy un soldado de la guarnición.,I am a soldier from the garrison.
+q01.answer.1,Vengo a comerciar.,I come to trade.
+q01.answer.2,Busco refugio.,I seek shelter.
+q01.answer.3,No tengo por qué decírtelo.,I don't have to tell you.
+q02.narrator,El desconocido espera tu respuesta.,The stranger awaits your response.
+q02.text,¿Tienes documentos que lo prueben?,Do you have documents to prove it?
+q02.answer.0,Sí aquí están.,Yes here they are.
+q02.answer.1,Los perdí en el camino.,I lost them on the way.
+q02.answer.2,No los necesito.,I don't need them.
+q02.answer.3,Dame un momento.,Give me a moment.
+ui.test.progress,Pregunta {0} de {1},Question {0} of {1}
+ui.test.name.prompt,¿Cuál es tu nombre?,What is your name?
+ui.test.name.placeholder,Escribe tu nombre...,Type your name...
+ui.test.name.confirm,Confirmar,Confirm
+ui.test.result.title,Resultado,Result
+ui.test.result.continue,Continuar,Continue
+lang.spanish,Español,Spanish
+lang.english,Inglés,English
