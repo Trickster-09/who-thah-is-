@@ -2,10 +2,22 @@ using UnityEngine;
 
 // ============================================================
 // EncounterDebugRunner.cs
-// Corre un encuentro completo automaticamente al entrar en Play, para
-// validar la maquina de estados de punta a punta antes de construir
-// la UI real. Reemplaza en la práctica a InterrogationDebugRunner
-// (que solo probaba el grafo, no el flujo completo del encuentro).
+//
+// v2 — antes de que existiera la UI real, este script resolvia todo
+// el interrogatorio de una sola vez dentro de Start() (un while que
+// elegia respuestas "scripteadas" sin ceder el control ni un frame).
+// Eso funcionaba para validar la maquina de estados por consola, pero
+// es incompatible con la UI real: para cuando cualquier otro script
+// (como InterrogationUIController) llegaba a subscribirse a los
+// eventos del encuentro, el encuentro entero ya habia terminado.
+//
+// Ahora este script solo dispara el encuentro. Las respuestas las
+// elige el jugador haciendo clic en los botones reales
+// (InterrogationUIController -> EncounterController.AnswerInterrogation).
+// Lo unico que todavia no tiene botón en la UI es la decision final
+// (dejar pasar / rechazar), asi que este runner la resuelve
+// automáticamente en cuanto el encuentro llega a DecisionState,
+// usando el mismo patrón basado en eventos (nada de polling).
 // ============================================================
 
 public class EncounterDebugRunner : MonoBehaviour
@@ -13,10 +25,8 @@ public class EncounterDebugRunner : MonoBehaviour
     [SerializeField] private EncounterController controller;
     [SerializeField] private NPCProfile npcProfile;
 
-    [Tooltip("Indice de respuesta a elegir en cada pregunta, en orden.")]
-    [SerializeField] private int[] scriptedAnswers = new int[] { 0, 0 };
-
-    [Tooltip("Que decide el jugador al final: dejarlo pasar o no.")]
+    [Tooltip("Que decide el jugador al final: dejarlo pasar o no. " +
+             "Temporal hasta que haya botones de decision en la UI.")]
     [SerializeField] private bool playerAllowsEntry = false;
 
     private void Start()
@@ -27,24 +37,22 @@ public class EncounterDebugRunner : MonoBehaviour
             return;
         }
 
+        controller.OnStateChanged += HandleStateChanged;
         controller.StartEncounter(npcProfile);
+    }
 
-        int step = 0;
-        while (controller.CurrentState is InterrogationState)
+    private void OnDestroy()
+    {
+        if (controller != null)
+            controller.OnStateChanged -= HandleStateChanged;
+    }
+
+    private void HandleStateChanged()
+    {
+        if (controller.CurrentState is DecisionState)
         {
-            var node = controller.GetCurrentQuestion();
-            if (node == null) break;
-
-            Debug.Log($"[Interrogatorio] {node.Speaker}: {LocalizationManager.Get(node.TextKey)}");
-
-            int answerIndex = step < scriptedAnswers.Length ? scriptedAnswers[step] : 0;
-            if (answerIndex >= node.Answers.Count) break;
-
-            Debug.Log($"[Interrogatorio] Jugador elige: {LocalizationManager.Get(node.Answers[answerIndex].TextKey)}");
-            controller.AnswerInterrogation(answerIndex);
-            step++;
+            Debug.Log("[EncounterDebugRunner] Interrogatorio terminado, resolviendo decision automaticamente (falta UI de decision).");
+            controller.DecidePlayer(playerAllowsEntry);
         }
-
-        controller.DecidePlayer(playerAllowsEntry);
     }
 }

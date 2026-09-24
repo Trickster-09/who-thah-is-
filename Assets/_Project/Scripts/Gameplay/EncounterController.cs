@@ -1,12 +1,17 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 // ============================================================
 // EncounterController.cs
 // Dueño del estado actual del encuentro. No sabe nada de UI ni de
-// Animator: expone metodos que la UI (o, por ahora, EncounterDebugRunner)
-// llama para avanzar el flujo, y dispara Debug.Log en cada transicion
-// para poder validar todo por consola antes de construir la pantalla
-// real.
+// Animator: expone metodos que la UI (o EncounterDebugRunner, para
+// pruebas sin UI) llama para avanzar el flujo.
+//
+// OnStateChanged / OnQuestionChanged: la UI se subscribe a estos
+// eventos y refresca SOLO cuando algo realmente cambio (nunca desde
+// Update()). Es la misma disciplina de "cachear y refrescar por
+// evento" que ya usa LocalizationManager.OnLanguageChanged.
 // ============================================================
 
 public class EncounterController : MonoBehaviour
@@ -15,16 +20,19 @@ public class EncounterController : MonoBehaviour
     [SerializeField] private InterrogationDatabase interrogationDatabase;
 
     public NPCProfile CurrentNpc { get; private set; }
-    public System.Collections.Generic.List<string> ContradictionsFound { get; private set; } = new System.Collections.Generic.List<string>();
+    public List<string> ContradictionsFound { get; private set; } = new List<string>();
     public EncounterOutcome Outcome { get; private set; }
     public IEncounterState CurrentState { get; private set; }
+
+    public event Action OnStateChanged;
+    public event Action OnQuestionChanged;
 
     private InterrogationSession _session;
 
     public void StartEncounter(NPCProfile npc)
     {
         CurrentNpc = npc;
-        ContradictionsFound = new System.Collections.Generic.List<string>();
+        ContradictionsFound = new List<string>();
         Outcome = null;
         TransitionTo(new ApproachState());
     }
@@ -34,6 +42,7 @@ public class EncounterController : MonoBehaviour
         CurrentState?.Exit(this);
         CurrentState = next;
         CurrentState.Enter(this);
+        OnStateChanged?.Invoke();
     }
 
     // ── Usado durante InterrogationState ──────────────────────
@@ -41,6 +50,7 @@ public class EncounterController : MonoBehaviour
     public void BeginInterrogation()
     {
         _session = new InterrogationSession(interrogationDatabase, CurrentNpc);
+        OnQuestionChanged?.Invoke();
     }
 
     public InterrogationNode GetCurrentQuestion() => _session?.GetCurrentNode();
@@ -55,6 +65,10 @@ public class EncounterController : MonoBehaviour
         {
             ContradictionsFound = _session.FinishAndEvaluate();
             TransitionTo(new InspectionState());
+        }
+        else
+        {
+            OnQuestionChanged?.Invoke();
         }
     }
 
